@@ -79,12 +79,11 @@ class CampsiteInfo extends Component {
   render() {
     const campsiteId = this.props.navigation.getParam("campsiteId");
 
-    const campsite = this.state.campsites.filter(
-      (campsite) => campsite.id === campsiteId
-    )[0];
+    const campsite = this.state.campsites.filter
+      (campsite => campsite.id === campsiteId)[0];
 
     const comments = this.state.comments.filter(
-      (comment) => comment.campsiteId === campsiteId
+      (comment => comment.campsiteId === campsiteId)
     );
 
     return (
@@ -92,8 +91,8 @@ class CampsiteInfo extends Component {
         <RenderCampsite
           campsite={campsite}
           favorite={this.state.favorite}
-          markFavorite={() => this.markFavorite()}
-        />
+          markFavorite={() => this.markFavorite()}/>
+      <RenderComments comments= {comments}/>
       </ScrollView>
     );
   }
