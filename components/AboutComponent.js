@@ -7,7 +7,7 @@ import {baseUrl} from '../shared/baseUrl';
 import Loading from './LoadingComponent'
 
 
-const mapStatetoProps= state => {
+const mapStateToProps= state => {
   return{
     partners: state.partners
   };
@@ -88,4 +88,4 @@ if (this.props.partners.errMess) {
     );
   }
 }
-export default connect(mapStatetoProps)(About);
+export default connect(mapStateToProps)(About);

@@ -6,7 +6,7 @@ import {baseUrl} from '../shared/baseUrl';
 import Loading from './LoadingComponent';
 
 
-const mapStatetoProps= state => {
+const mapStateToProps= state => {
   return{
      campsites: state.campsites
  
