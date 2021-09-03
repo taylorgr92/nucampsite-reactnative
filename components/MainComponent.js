@@ -54,13 +54,15 @@ const DirectoryNavigator = createStackNavigator(
   },
   {
     initialRouteName: "Directory",
+    defaultNavigationOptions: {
     headerStyle: {
       backgroundColor: "#5637DD",
     },
     headerTintColor: "#fff",
     headerTitleStyle: {
       color: "#fff",
-    },
+      },
+    }
   }
 );
 
@@ -271,6 +273,7 @@ class Main extends Component {
         }}
       >
         <AppNavigator />
+        {/* <Text>Hi</Text> */}
       </View>
     );
   }

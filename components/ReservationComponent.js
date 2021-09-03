@@ -19,6 +19,7 @@ class Reservation extends Component {
       hikeIn:false,
       date: new Date(),
       showCalendar: false,
+      showModal: false
      
 
     };
@@ -105,13 +106,13 @@ class Reservation extends Component {
                     accessibilityLabel='Tap me to search for available campsites to reserve'
                 />
             </View>
-            <Modal>
+            <Modal
                 animationType= {'slide'}
                 transparent= {false}
-                visibility= {this.state.showModal}
+                visible= {this.state.showModal}
                  onRequestClose={()=> this.toggleModal()}
-                 
-                < View style={styles.modal}>
+                 >
+                <View style={styles.modal}>
                         <Text style={styles.modalTitle}>Search Campsite Reservations</Text>
                         <Text style={styles.modalText}>
                             Number of Campers: {this.state.campers}

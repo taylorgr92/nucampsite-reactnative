@@ -19,7 +19,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps= {
-  postFavorite: campsiteId => (postFavorite(campsite))
+  postFavorite: campsiteId => (postFavorite(campsiteId))
 }
 
 function RenderCampsite(props) {
@@ -101,7 +101,7 @@ class CampsiteInfo extends Component {
       <ScrollView>
           <RenderCampsite
             campsite={campsite}
-            favorite={this.props.favorite.includes(campsiteId)}
+            favorite={this.props.favorites.includes(campsiteId)}
             markFavorite={() => this.markFavorite(campsiteId)}
             />
            <RenderComments comments= {comments}/>
