@@ -1,5 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
+import { setStatusBar} from 'expo-status-bar';
 
 export const fetchComments = () => dispatch => {
     return fetch(baseUrl + 'comments')
@@ -21,6 +22,24 @@ export const fetchComments = () => dispatch => {
         .catch(error => dispatch(commentsFailed(error.message)));
 };
 
+
+export const postComment= (campsiteId, rating, author, text)=> dispatch =>{
+    const newComment = {
+        campsiteId,
+        rating,
+        author,
+        text
+        
+    };
+    newComment.date= new Date().toISOString();
+
+    setTimeout(() => {
+        dispatch(addComment(newComment));
+    }, 2000 );
+
+}
+
+
 export const commentsFailed = errMess => ({
     type: ActionTypes.COMMENTS_FAILED,
     payload: errMess
@@ -30,6 +49,12 @@ export const addComments = comments => ({
     type: ActionTypes.ADD_COMMENTS,
     payload: comments
 });
+
+export const addComment = comment => ({
+    type: ActionTypes.ADD_COMMENT,
+    payload: comment
+})
+
 
 export const fetchCampsites = () => dispatch => {
 
@@ -152,3 +177,4 @@ export const addFavorite = campsiteId => ({
     type: ActionTypes.ADD_FAVORITE,
     payload: campsiteId
 });
+
