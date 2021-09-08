@@ -13,6 +13,10 @@ export const campsites = (state = { isLoading: true,
         case ActionTypes.CAMPSITES_FAILED:
             return {...state, isLoading: false, errMess: action.payload};
 
+            case ActionTypes.DELETE_FAVORITE:
+                return state.filter(favorite => favorite !== action.payload);
+
+
         default:
             return state;
       }

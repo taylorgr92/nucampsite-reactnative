@@ -1,6 +1,6 @@
 import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
-import { setStatusBar} from 'expo-status-bar';
+
 
 export const fetchComments = () => dispatch => {
     return fetch(baseUrl + 'comments')
@@ -178,3 +178,7 @@ export const addFavorite = campsiteId => ({
     payload: campsiteId
 });
 
+export const deleteFavorite = campsiteId => ({
+    type: ActionTypes.DELETE_FAVORITE,
+    payload: campsiteId
+});
