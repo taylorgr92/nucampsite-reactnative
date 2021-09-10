@@ -76,7 +76,7 @@ class Favorites extends Component {
     if (this.props.campsites.errMess) {
       return (
         <View>
-          <Text>{props.campsites.errMess}</Text>
+          <Text>{this.props.campsites.errMess}</Text>
         </View>
       );
     }
@@ -88,7 +88,7 @@ class Favorites extends Component {
             this.props.favorites.includes(campsite.id)
           )}
           renderItem={renderFavoriteItem}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={item => item.id.toString()}
         />
       </Animatable.View>
     );
