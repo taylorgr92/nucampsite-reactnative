@@ -350,7 +350,7 @@ class Main extends Component {
         }}
       >
         <AppNavigator />
-        {/* <Text>Hi</Text> */}
+      
       </View>
     );
   }
