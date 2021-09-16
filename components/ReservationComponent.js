@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-
 import {
   Text,
   View,
@@ -11,8 +10,8 @@ import {
   Alert,
 } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import * as Notifications from "expo-notifications";
 import * as Animatable from "react-native-animatable";
-import * as Notifications from 'expo-notifications';
 
 class Reservation extends Component {
   constructor(props) {
@@ -31,23 +30,34 @@ class Reservation extends Component {
   handleReservation() {
     Alert.alert(
       "Begin Search?",
-      "Number of Campers:" + this.state.campers +
-     '\n\nHike-In?' + this.state.hikeIn +
-     '\n\nDate' + this.state.date.toLocaleDateString('en-US'),
+      "Number of Campers:" +
+        this.state.campers +
+        "\n\nHike-In?" +
+        this.state.hikeIn +
+        "\n\nDate" +
+        this.state.date.toLocaleDateString("en-US"),
 
       [
         {
           text: "Cancel",
-          onPress: () => this.resetForm(),
+          onPress: () => {
+            console.log("Reservation Search Cancelled");
+            this.resetForm();
+          },
           style: "cancel",
         },
         {
           text: "OK",
-          onPress: () =>this.resetForm(),
-        },
+          onPress: () => {
+            this.presentLocalNotification(this.state.date.toLocaleDateString(
+              "en-US"
+            ));
+            this.resetForm();
+          }
+        }
       ],
 
-      {cancelable: false}
+      { cancelable: false }
     );
   }
 
@@ -61,31 +71,33 @@ class Reservation extends Component {
   }
 
   async presentLocalNotification(date) {
-    function sendNotification(){
-      Notification.setNotification({
+    function sendNotification() {
+      Notifications.setNotificationHandler({
         handleNotification: async () => ({
-          shouldShowAlert: true
-        })
+          shouldShowAlert: true,
+        }),
       });
-      Notifications.getAllScheduledNotificationsAsync({
+
+      Notifications.scheduleNotificationAsync({
         content: {
-          title: 'Your Campsite Reservation Search',
-          body: `Search for ${date} requested`
+          title: "Your Campsite Reservation Search",
+          body: `Search for ${date} requested`,
         },
-        trigger: null
+        trigger: null,
       });
     }
+
     let permissions = await Notifications.getPermissionsAsync();
     if (!permissions.granted) {
-        permissions = await Notifications.requestPermissionsAsync();
+      permissions = await Notifications.requestPermissionsAsync();
     }
     if (permissions.granted) {
-        sendNotification();
+      sendNotification();
     }
-}
+  }
 
-render() {
-    return (    
+  render() {
+    return (
       <ScrollView>
         <Animatable.View animation="zoomIn" duration={2000} delay={1000}>
           <View style={styles.formRow}>
