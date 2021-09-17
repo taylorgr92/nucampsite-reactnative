@@ -9,6 +9,7 @@ import {
   Button,
   PanResponder,
   Alert,
+  Share,
 } from "react-native";
 import { Card, Icon, Rating, Input } from "react-native-elements";
 import { connect } from "react-redux";
@@ -75,6 +76,18 @@ function RenderCampsite(props) {
       return true;
     },
   });
+  const shareCampsite = (title, message, url) => {
+    Share.share(
+      {
+        title: title,
+        message: `${title}: ${message} ${url}`,
+        url: url,
+      },
+      {
+        dialogTitle: "Share " + title,
+      }
+    );
+  };
 
   if (campsite) {
     return (
@@ -90,37 +103,47 @@ function RenderCampsite(props) {
           image={{ uri: baseUrl + campsite.image }}
         >
           <Text style={{ margin: 10 }}>{campsite.description}</Text>
-
-          <View style={{ margin: 10 }}>
-            <View style={styles.cardRow}>
-              <Icon
-                name={props.favorite ? "heart" : "heart-o"}
-                type="font-awesome"
-                color="#f50"
-                raised
-                reverse
-                onPress={() =>
-                  props.favorite
-                    ? console.log("Already set as a favorite")
-                    : props.markFavorite()
-                }
-              />
-              <Icon
-                name="pencil"
-                type="font-awesome"
-                color="#5637DD"
-                raised
-                reverse
-                onPress={() => props.onShowModal()}
-              />
-            </View>
+          <View style={styles.cardRow}>
+            <Icon
+              name={props.favorite ? "heart" : "heart-o"}
+              type="font-awesome"
+              color="#f50"
+              raised
+              reverse
+              onPress={() =>
+                props.favorite
+                  ? console.log("Already set as a favorite")
+                  : props.markFavorite()
+              }
+            />
+            <Icon
+              name="pencil"
+              type="font-awesome"
+              color="#5637DD"
+              raised
+              reverse
+              onPress={() => props.onShowModal()}
+            />
+            <Icon
+              name={"share"}
+              type="font-awesome"
+              color="#5637DD"
+              raised
+              reverse
+              onPress={() =>
+                shareCampsite(
+                  campsite.name,
+                  campsite.description,
+                  baseUrl + campsite.image
+                )
+              }
+            />
           </View>
         </Card>
       </Animatable.View>
     );
   }
-
-  return <View />;
+  return <shareCampsite />;
 }
 
 function RenderComments({ comments }) {
