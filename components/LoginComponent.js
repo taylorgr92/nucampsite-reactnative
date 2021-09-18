@@ -164,6 +164,9 @@ class RegisterTab extends Component {
         }
     }
 
+
+
+    
     handleRegister() {
         console.log(JSON.stringify(this.state));
         if (this.state.remember) {
